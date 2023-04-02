@@ -1,6 +1,7 @@
 package pl.wit.lab2;
 
 import java.time.LocalDate;
+import java.util.Arrays;
 
 /**
  *
@@ -64,16 +65,79 @@ public class Presentation {
 
 	public byte getAge() {
 		LocalDate now = LocalDate.now();
-		return (byte)(now.getYear() - birthdayYear);
+		return (byte) (now.getYear() - birthdayYear);
 	}
 
-	public Presentation addVisitedPlaces(){
-
+	public void addVisitedPlaces(String[] newVisitedPlaces) {
+		for (String place : newVisitedPlaces) {
+			visitedPlaces = Arrays.copyOf(visitedPlaces, visitedPlaces.length + 1);
+			visitedPlaces[visitedPlaces.length - 1] = place;
+		}
 	}
 
 	public String getPresentationStory() {
+		String facebookFriendsStory = null;
+		String bornInCapitalCity;
+		StringBuilder visitedPlacesStory = new StringBuilder();
+		StringBuilder personPresentation = new StringBuilder();
 
-		return null;
+		if (facebookFriendsQuantity == 0) {
+			facebookFriendsStory = "Nie mam znajomych na Facebooku";
+		} else if (facebookFriendsQuantity > 0 && facebookFriendsQuantity <= 100) {
+			facebookFriendsStory = "Mam małe grono znajomych na Facebooku";
+		} else if (facebookFriendsQuantity > 100 && facebookFriendsQuantity <= 500) {
+			facebookFriendsStory = "Mam średnie grono znajomych na Facebooku";
+		} else if (facebookFriendsQuantity > 500 && facebookFriendsQuantity <= 1000) {
+			facebookFriendsStory = "Mam spore grono znajomych na Facebooku";
+		} else if (facebookFriendsQuantity > 1000 && facebookFriendsQuantity <= 5000) {
+			facebookFriendsStory = "Mam duże grono znajomych na facebooku";
+		} else if (facebookFriendsQuantity > 5000) {
+			facebookFriendsStory = "Mam ogromne grono znajomych na facebooku";
+		}
+
+		for (String place : visitedPlaces) {
+			if (visitedPlaces == null) {
+			} else {
+				visitedPlacesStory.append("Do tej pory odwiedziłem : ");
+				for (String el : visitedPlaces) {
+					visitedPlacesStory.append(", ").append(el);
+				}
+			}
+		}
+
+		switch (placeOfBirth.toUpperCase()) {
+			case "WARSZAWA":
+				bornInCapitalCity = ", stolica Polski";
+				break;
+
+			case "KRAKÓW":
+				bornInCapitalCity = ", poprzednia stolica Polski";
+				break;
+			case "GNIEZNO":
+				bornInCapitalCity = ", pierwsza stolica Polski";
+				break;
+			default:
+				bornInCapitalCity = "";
+				break;
+		}
+
+		personPresentation
+				.append("Cześć,\n nazywam się ")
+				.append(getFullName())
+				.append(".\n Moja data narodzin to ")
+				.append(getBirthdayDateAsString())
+				.append(". Mam")
+				.append(getAge())
+				.append("lat.\n")
+				.append("Moje miejsce urodzenia to ")
+				.append(placeOfBirth)
+				.append(bornInCapitalCity)
+				.append("\n")
+				.append(visitedPlacesStory)
+				.append("\n")
+				.append(facebookFriendsStory);
+
+		return personPresentation.toString();
 	}
 
 
