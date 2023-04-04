@@ -4,58 +4,69 @@ import java.time.LocalDate;
 import java.util.Arrays;
 
 /**
- *
  * @author piotrkanarek
- *
+ * <p>
+ * Klasa zawiera metody do utworzenia obiektu osoby, nadania jej odpowiednich parametrów oraz metody potrzebne do
+ * odczytywania i modyfikowania ich.
  */
 public class Presentation {
 
-	//
-	private String firstName;
-	//
-	private String lastName;
-	//
+	// imię osoby
+	private final String firstName;
+	// nazwisko osoby
+	private final String lastName;
+	// dzień urodzenia, miesiąc urodzenia, rok urodzenia
 	private byte birthdayDay, birthdayMonth, birthdayYear;
-	//
+	// miejsce urodzenia
 	private String placeOfBirth;
-	//
+	// ilość znajomych na Facebooku
 	private short facebookFriendsQuantity;
-	//
+	// odwiedzone miejsca
 	private String[] visitedPlaces;
 
-	public Presentation(String firstName,String lastName) {
+	public Presentation(String firstName, String lastName) {
 		this.firstName = firstName;
 		this.lastName = lastName;
 	}
 
-	public Presentation(String firstName,String lastName,int birthdayDay,int birthdayMonth,int birthdayYear) {
-		this(firstName,lastName);
+	public Presentation(String firstName, String lastName, int birthdayDay, int birthdayMonth, int birthdayYear) {
+		this(firstName, lastName);
 		this.birthdayDay = (byte) birthdayDay;
 		this.birthdayMonth = (byte) birthdayMonth;
 		this.birthdayYear = (byte) birthdayYear;
 	}
 
+	/**
+	 * Metoda zwraca imię oraz nazwisko jako jeden String.
+	 *
+	 * @return String zawierający imię i nazwisko oddzielone spacją.
+	 */
 	public String getFullName() {
-		StringBuilder fullName = new StringBuilder();
-		fullName.append(firstName).append(" ").append(lastName);
-		return fullName.toString();
+		return firstName + " " + lastName;
 	}
 
+	/**
+	 * Metoda zamienia poszczególne składowe daty urodzenia na jeden String.
+	 *
+	 * @return String z datą urodzenia w formacie dd.mm.yy
+	 */
 	public String getBirthdayDateAsString() {
 		//Ręczne zbudowanie Daty w formacie dd.MM.yy (rok wyjątkowo na 2 pozycjach ;) )
-		StringBuilder day = new StringBuilder(birthdayDay);
-		StringBuilder month = new StringBuilder(birthdayMonth);
-		StringBuilder year = new StringBuilder(birthdayYear);
+		String day = "" + birthdayDay;
+		String month = "" + birthdayMonth;
+		String year = "" + birthdayYear;
 		StringBuilder birthdayDate = new StringBuilder();
 
-		if(day.length() == 1){
-			day.insert(0, "0");
-		} else if(month.length() == 1){
-			month.insert(0, "0");
+		if (day.length() == 1) {
+			day = "0" + day;
+		}
+
+		if (month.length() == 1) {
+			month = "0" + month;
 		}
 
 		if (year.length() == 4) {
-			year.delete(0,1);
+			year = year.substring(2);
 		}
 
 		birthdayDate.append(day).append(".").append(month).append(".").append(year);
@@ -63,11 +74,30 @@ public class Presentation {
 		return birthdayDate.toString();
 	}
 
+	/**
+	 * Metoda liczby aktualny wiek osoby.
+	 *
+	 * @return wiek osoby
+	 */
 	public byte getAge() {
 		LocalDate now = LocalDate.now();
-		return (byte) (now.getYear() - birthdayYear);
+		String tmp = String.valueOf(now.getYear());
+		int currentYear = Integer.parseInt(tmp.substring(2));
+		int age = currentYear - birthdayYear;
+
+		if (age <= 0) {
+			int yearsToMillennium = 100 - birthdayYear;
+			age = currentYear + yearsToMillennium;
+		}
+
+		return (byte) age;
 	}
 
+	/**
+	 * Metoda dodaje odwiedzone miejsca.
+	 *
+	 * @param newVisitedPlaces tablica typu String zawierająca odwiedzone miejsca do dodania.
+	 */
 	public void addVisitedPlaces(String[] newVisitedPlaces) {
 		for (String place : newVisitedPlaces) {
 			visitedPlaces = Arrays.copyOf(visitedPlaces, visitedPlaces.length + 1);
@@ -75,6 +105,11 @@ public class Presentation {
 		}
 	}
 
+	/**
+	 * Metoda tworzy historię na podstawię podanych parametrów utworzonego obiektu osoby.
+	 *
+	 * @return String z historią utworzonej osoby.
+	 */
 	public String getPresentationStory() {
 		String facebookFriendsStory = null;
 		String bornInCapitalCity;
@@ -95,26 +130,29 @@ public class Presentation {
 			facebookFriendsStory = "Mam ogromne grono znajomych na facebooku";
 		}
 
-		for (String place : visitedPlaces) {
-			if (visitedPlaces == null) {
-			} else {
-				visitedPlacesStory.append("Do tej pory odwiedziłem : ");
-				for (String el : visitedPlaces) {
+		if (visitedPlaces == null) {
+		} else {
+			boolean firstIteration = true;
+			visitedPlacesStory.append("Odwiedzone przeze mnie miejsca to : ");
+			for (String el : visitedPlaces) {
+				if (firstIteration) {
+					visitedPlacesStory.append(el);
+				} else
 					visitedPlacesStory.append(", ").append(el);
-				}
+				firstIteration = false;
 			}
 		}
 
 		switch (placeOfBirth.toUpperCase()) {
 			case "WARSZAWA":
-				bornInCapitalCity = ", stolica Polski";
+				bornInCapitalCity = ", stolica Polski.";
 				break;
 
 			case "KRAKÓW":
-				bornInCapitalCity = ", poprzednia stolica Polski";
+				bornInCapitalCity = ", poprzednia stolica Polski.";
 				break;
 			case "GNIEZNO":
-				bornInCapitalCity = ", pierwsza stolica Polski";
+				bornInCapitalCity = ", pierwsza stolica Polski.";
 				break;
 			default:
 				bornInCapitalCity = "";
@@ -122,20 +160,23 @@ public class Presentation {
 		}
 
 		personPresentation
-				.append("Cześć,\n nazywam się ")
+				.append("Cześć, nazywam się ")
 				.append(getFullName())
-				.append(".\n Moja data narodzin to ")
+				.append(".\nMoja data narodzin to ")
 				.append(getBirthdayDateAsString())
-				.append(". Mam")
+				.append(". Mam ")
 				.append(getAge())
-				.append("lat.\n")
+				.append(" lat.\n")
 				.append("Moje miejsce urodzenia to ")
 				.append(placeOfBirth)
 				.append(bornInCapitalCity)
 				.append("\n")
 				.append(visitedPlacesStory)
-				.append("\n")
-				.append(facebookFriendsStory);
+				.append(".\n")
+				.append(facebookFriendsStory)
+				.append(" - ")
+				.append(facebookFriendsQuantity)
+				.append(" osób.");
 
 		return personPresentation.toString();
 	}
@@ -144,18 +185,9 @@ public class Presentation {
 	////////////////////////////////////////////
 	// gettery i settery
 	////////////////////////////////////////////
-	public String getPlaceOfBirth() {
-		return placeOfBirth;
-	}
-
 	public void setPlaceOfBirth(String placeOfBirth) {
 		this.placeOfBirth = placeOfBirth;
 	}
-
-	public short getFacebookFriendsQuantity() {
-		return facebookFriendsQuantity;
-	}
-
 	public void setFacebookFriendsQuantity(short facebookFriendsQuantity) {
 		this.facebookFriendsQuantity = facebookFriendsQuantity;
 	}
