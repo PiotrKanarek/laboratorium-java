@@ -81,13 +81,12 @@ public class Presentation {
 	 */
 	public byte getAge() {
 		LocalDate now = LocalDate.now();
-		String tmp = String.valueOf(now.getYear());
-		int currentYear = Integer.parseInt(tmp.substring(2));
+		int currentYear = now.getYear() % 100;
+
 		int age = currentYear - birthdayYear;
 
 		if (age <= 0) {
-			int yearsToMillennium = 100 - birthdayYear;
-			age = currentYear + yearsToMillennium;
+			age = currentYear + (100 - birthdayYear);
 		}
 
 		return (byte) age;
