@@ -58,7 +58,9 @@ public class Lab2SetAndMapExample {
         return setCars.contains(element);
     }
 
-    //gettery i settery
+    /////////////////////////////////
+    // getters and setters
+    /////////////////////////////////
     public Set<String> getSetCars() {
         return setCars;
     }

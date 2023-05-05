@@ -11,33 +11,100 @@ import java.util.Set;
  * @author Łukasz
  */
 public class Secretary1 extends Employee1 {
-	//Zbiór znanych języków obcych
-	private Set<String> setLanguages = null;
+    //Zbiór znanych języków obcych
+    private Set<String> setLanguages = null;
 
-	public Secretary1(String firstName, String lastName, Date dateOfBirth, Date employmentDate, BigDecimal sallary) {
-		setFirstName(firstName);
-		setLastName(lastName);
-		setDateOfBirth(dateOfBirth);
-		setEmploymentDate(employmentDate);
-		setSallary(sallary);
-		this.setLanguages = new HashSet<String>();
-	}
+    public Secretary1(String firstName, String lastName, Date dateOfBirth, Date employmentDate, BigDecimal salary) {
+        setFirstName(firstName);
+        setLastName(lastName);
+        setDateOfBirth(dateOfBirth);
+        setEmploymentDate(employmentDate);
+        setSalary(salary);
+        this.setLanguages = new HashSet<String>();
+    }
 
-	/**
-	 * Metoda dodająca kolejny język
-	 *
-	 * @param language
-	 */
-	public void addLanguage(String language) {
-		setLanguages.add(language);
-	}
+    /**
+     * Metoda dodająca kolejny język
+     *
+     * @param language
+     */
+    public void addLanguage(String language) {
+        setLanguages.add(language);
+    }
 
-	/**
-	 * Metoda zwracająca posortowaną tablice języków obcych
-	 *
-	 * @return
-	 */
-	public Set<String> getLanguages() {
-		return setLanguages;
-	}
+    /**
+     * Metoda zwracająca posortowaną tablice języków obcych
+     *
+     * @return
+     */
+    public Set<String> getLanguages() {
+        return setLanguages;
+    }
+
+    public boolean matches(
+            String firstName,
+            String lastName,
+            Date birthFrom,
+            Date birthTo,
+            Date employmentFrom,
+            Date employmentTo,
+            BigDecimal salaryFrom,
+            BigDecimal salaryTo,
+            Set<String> languages
+    ) {
+        boolean match = false;
+        boolean languagesMatches = false;
+
+        if (languages != null) {
+            languagesMatches = getLanguages().containsAll(languages);
+        }
+
+        if (super.matches(firstName, lastName, birthFrom, birthTo, employmentFrom, employmentTo, salaryFrom, salaryTo) &&
+                languagesMatches
+        ) {
+            match = true;
+        }
+
+        if (super.matches(firstName, lastName, birthFrom, birthTo, employmentFrom, employmentTo, salaryFrom, salaryTo) &&
+                languages == null
+        ) {
+            match = true;
+        }
+
+        return match;
+    }
+
+    public boolean matches(
+            String firstName,
+            String lastName,
+            Date birthFrom,
+            Date birthTo,
+            boolean strict,
+            Date employmentFrom,
+            Date employmentTo,
+            BigDecimal salaryFrom,
+            BigDecimal salaryTo,
+            Set<String> languages
+    ) {
+        boolean match = false;
+        boolean languagesMatches = false;
+
+        if (languages != null) {
+            languagesMatches = getLanguages().containsAll(languages);
+        }
+
+        if (super.matches(firstName, lastName, birthFrom, birthTo, strict, employmentFrom, employmentTo, salaryFrom, salaryTo) &&
+                languagesMatches
+        ) {
+            match = true;
+        }
+
+        if (super.matches(firstName, lastName, birthFrom, birthTo, strict, employmentFrom, employmentTo, salaryFrom, salaryTo) &&
+                languages == null
+        ) {
+            match = true;
+        }
+
+        return match;
+    }
 }
