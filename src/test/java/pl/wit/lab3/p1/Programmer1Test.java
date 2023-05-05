@@ -34,8 +34,8 @@ public class Programmer1Test {
         );
 
         programmer.addProgrammingLanguage("Java", Short.valueOf("5"));
-        programmer.addProgrammingLanguage("Python", Short.valueOf("7"));
         programmer.addProgrammingLanguage("C++", Short.valueOf("2"));
+        programmer.addProgrammingLanguage("Python", Short.valueOf("5"));
         programmer.addProgrammingLanguage("C#", Short.valueOf("5"));
 
         boolean result = programmer.matches(
@@ -76,8 +76,8 @@ public class Programmer1Test {
         );
 
         programmer.addProgrammingLanguage("Java", Short.valueOf("5"));
-        programmer.addProgrammingLanguage("Python", Short.valueOf("7"));
         programmer.addProgrammingLanguage("C++", Short.valueOf("2"));
+        programmer.addProgrammingLanguage("Python", Short.valueOf("5"));
         programmer.addProgrammingLanguage("C#", Short.valueOf("5"));
 
         boolean result = programmer.matches(
