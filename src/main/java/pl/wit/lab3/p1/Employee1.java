@@ -37,7 +37,7 @@ public class Employee1 extends Person1 {
         }
 
         if (employmentTo != null) {
-            if (getEmploymentDate().after(employmentTo) || getEmploymentDate().equals(employmentTo)) {
+            if (getEmploymentDate().before(employmentTo) || getEmploymentDate().equals(employmentTo)) {
                 employmentToMatches = true;
             }
         }
@@ -98,7 +98,7 @@ public class Employee1 extends Person1 {
         }
 
         if (employmentTo != null) {
-            if (getEmploymentDate().after(employmentTo) || getEmploymentDate().equals(employmentTo)) {
+            if (getEmploymentDate().before(employmentTo) || getEmploymentDate().equals(employmentTo)) {
                 employmentToMatches = true;
             }
         }

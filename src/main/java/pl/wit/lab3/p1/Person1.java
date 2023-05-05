@@ -37,7 +37,7 @@ public class Person1 {
         }
 
         if (birthTo != null) {
-            if (getDateOfBirth().after(birthTo) || getDateOfBirth().equals(birthTo)) {
+            if (getDateOfBirth().before(birthTo) || getDateOfBirth().equals(birthTo)) {
                 birthToMatches = true;
             }
         }
@@ -83,7 +83,7 @@ public class Person1 {
         }
 
         if (birthTo != null) {
-            if (getDateOfBirth().after(birthTo) || getDateOfBirth().equals(birthTo)) {
+            if (getDateOfBirth().before(birthTo) || getDateOfBirth().equals(birthTo)) {
                 birthToMatches = true;
             }
         }

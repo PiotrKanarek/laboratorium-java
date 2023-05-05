@@ -53,20 +53,26 @@ public class Programmer1 extends Employee1 {
     public boolean matches(String firstName, String lastName, Date birthFrom, Date birthTo, Date employmentFrom, Date employmentTo, BigDecimal salaryFrom, BigDecimal salaryTo, Map<String, Short> mapProgrammingLanguages) {
         boolean match = false;
         boolean mapProgrammingLanguagesMatches = false;
-        Short value;
 
         if (mapProgrammingLanguages != null) {
             for (String language : mapProgrammingLanguages.keySet()) {
-                if (getProgrammingLanguageInfo(language).length() <= 3) {
-                    value = Short.valueOf(getProgrammingLanguageInfo(language));
-                } else {
-                    value = -1;
-                }
+                String expected = language.concat(" ").concat(mapProgrammingLanguages.get(language).toString());
+                String[] splitSubsetOfMap = expected.split("\\s+");
+                String[] splitMap = getProgrammingLanguageInfo(language).split("\\s+");
 
-                if (mapProgrammingLanguages.get(language) >= value) {
-                    mapProgrammingLanguagesMatches = true;
+                if (splitSubsetOfMap[0].equals(splitMap[0])) {
+                    short valueFromSubsetOfMap = Short.parseShort(splitSubsetOfMap[1]);
+                    short valueFromMap = Short.parseShort(splitMap[1]);
+
+                    if (valueFromSubsetOfMap <= valueFromMap) {
+                        mapProgrammingLanguagesMatches = true;
+                    } else {
+                        mapProgrammingLanguagesMatches = false;
+                        break;
+                    }
                 } else {
                     mapProgrammingLanguagesMatches = false;
+                    break;
                 }
             }
         }
