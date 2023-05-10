@@ -11,7 +11,7 @@ public class TeacherDemo extends AbstractDemo {
 	}
 
 	@Override
-	protected String getPersonType() {
-		return "nauczyciel";
-	}
+    protected EnPersonType getPersonType() {
+        return EnPersonType.teacher;
+    }
 }

@@ -20,7 +20,7 @@ public abstract class AbstractDemo {
 	 *
 	 * @return
 	 */
-	protected abstract String getPersonType();
+	protected abstract EnPersonType getPersonType();
 
 	public AbstractDemo(String firstName, String lastName) {
 		this.firstName = firstName;
@@ -28,13 +28,12 @@ public abstract class AbstractDemo {
 	}
 
 	public void printData() {
-		String personType = getPersonType();
+		EnPersonType personType = getPersonType();
 
 		log.info((firstName != null ? firstName : "")
 				.concat(" ")
 				.concat(lastName != null ? lastName : "")
 				.concat(" - ")
-				.concat(personType != null ? personType : ""));
+				.concat(personType != null ? String.valueOf(personType) : ""));
 	}
-
 }
