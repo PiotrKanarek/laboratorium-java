@@ -1,5 +1,8 @@
 package pl.wit.lab4.p1;
 
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
+
 import java.util.LinkedHashMap;
 import java.util.Map;
 
@@ -17,6 +20,10 @@ public class StudentDemo extends AbstractDemo {
 		this.mapPoints = mapPoints;
 	}
 
+	protected final Logger log = LogManager.getLogger(StudentDemo.class.getName());
+
+	protected final Logger log1 = LogManager.getLogger(TeacherDemo.class.getName());
+
 	/**
 	 * @param criterion      kryetrium oceny
 	 * @param numberOfPoints liczba puntków
@@ -32,6 +39,8 @@ public class StudentDemo extends AbstractDemo {
 		}
 
 		mapPoints.put(criterion, numberOfPoints);
+
+		logDebug(getAdditionalInfo());
 	}
 
 	@Override

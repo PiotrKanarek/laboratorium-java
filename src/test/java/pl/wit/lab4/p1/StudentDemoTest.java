@@ -1,11 +1,21 @@
 package pl.wit.lab4.p1;
 
+import org.apache.log4j.BasicConfigurator;
+import org.apache.log4j.Level;
+import org.apache.log4j.Logger;
 import org.junit.Assert;
+import org.junit.BeforeClass;
 import org.junit.Test;
 
 import java.util.LinkedHashMap;
 
 public class StudentDemoTest {
+
+    @BeforeClass
+    public static void setUpBeforeClass() throws Exception {
+        BasicConfigurator.configure();
+        Logger.getRootLogger().setLevel(Level.TRACE);
+    }
 
     @Test
     public void addPointsTest() throws PersonException {
