@@ -1,19 +1,24 @@
 package pl.wit.lab3.p1;
 
+import org.javatuples.Pair;
+
 import java.util.Date;
+import java.util.Map;
 
 /**
  * Klasa bazowa przetwarzająca podstawowe dane osobowe
  *
  * @author Łukasz
  */
-public class Person1 {
+public abstract class Person1 {
     // Imię
     private String firstName = null;
     // Nazwisko
     private String lastName = null;
     // Data urodzenia
     private Date dateOfBirth = null;
+
+    public abstract boolean search(Map<String, Pair<Object, Byte>> conditions) throws Exception;
 
     public boolean matches(String firstName, String lastName, Date birthFrom, Date birthTo) {
         boolean match = false;
