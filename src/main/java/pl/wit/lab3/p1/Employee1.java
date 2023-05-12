@@ -1,7 +1,10 @@
 package pl.wit.lab3.p1;
 
+import org.javatuples.Pair;
+
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.Map;
 
 /**
  * Klasa pochodna dla przetwrzania danych pracownika
@@ -13,6 +16,12 @@ public class Employee1 extends Person1 {
     private Date employmentDate = null;
     //Wyngrodzenie
     private BigDecimal salary = null;
+
+    @Override
+    public boolean search(Map<String, Pair<Object, Byte>> conditions) throws Exception {
+
+        return matches();
+    }
 
     public boolean matches(
             String firstName,
